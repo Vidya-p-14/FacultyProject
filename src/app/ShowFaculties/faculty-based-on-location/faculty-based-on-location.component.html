@@ -1,0 +1,16 @@
+<label class="col-form-label" for="location">Enter Location :</label> &nbsp;
+<textarea id="location" name="location" rows="1" cols="40" placeholder="enter location to show the faculty detail"
+    [(ngModel)]="location"></textarea> &nbsp;
+<button class="btn btn-primary btn-sm" (click)="facultyOnLocation()">Show</button>
+
+<div *ngIf="recordFound; else elseBlock">
+    <div class="displayFaculties" *ngFor="let displayFaculty of displayFaculties">
+        <h6>{{displayFaculty.facultyId}} : {{displayFaculty.facultyName}} : {{displayFaculty.facultyMobile}} :
+            {{displayFaculty.facultyEmail}} : {{displayFaculty.highestQualification}} : {{displayFaculty.workLocation}}
+        </h6>
+    </div>
+</div>
+
+<ng-template #elseBlock>
+    <h6>No records found for the location</h6>
+</ng-template>

@@ -1,0 +1,18 @@
+<div *ngIf="getCount() != 0 && getCount() != undefined else firstElseBlock">
+    <div *ngFor="let faculty of faculties">
+        <div *ngIf="faculty.highestQualification == 'Dr' ">
+            <h6>
+                {{faculty.facultyId}} : {{faculty.facultyName}} : {{faculty.facultyMobile}} : {{faculty.facultyEmail}} :
+                {{faculty.highestQualification}} : {{faculty.workLocation}}
+            </h6>
+        </div>
+    </div>
+</div>
+
+<ng-template #firstElseBlock>
+    <div *ngIf="getCount() == 0 else secondElseBlock">
+        <h4>No Phd faculty found.</h4>
+    </div>
+</ng-template>
+
+<ng-template #secondElseBlock></ng-template>

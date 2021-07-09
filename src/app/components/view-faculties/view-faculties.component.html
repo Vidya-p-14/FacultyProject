@@ -1,0 +1,5 @@
+<div *ngFor="let faculty of faculties">
+    <h6>
+        {{faculty.facultyId}} : {{faculty.facultyName}} : {{faculty.facultyMobile}} : {{faculty.facultyEmail}} : {{faculty.highestQualification}} : {{faculty.workLocation}}
+        &nbsp; &nbsp; <fa-icon (click)="onDelete(faculty)" [ngStyle]="{color: 'red'}" [icon]="faTimes"></fa-icon></h6>
+</div>

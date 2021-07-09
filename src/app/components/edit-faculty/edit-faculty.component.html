@@ -1,18 +1,30 @@
-<app-faculty-based-on-location [displayFaculties]="displayFaculties"></app-faculty-based-on-location>
-<app-add-faculty (toggleAddButton)="addFaculty()" color="{{showform ? 'red' : 'green'}}"
-    text="{{showform ? 'Close Form' : 'Add Faculty'}}"></app-add-faculty> <br>
+<label class="col-form-label" for="edit">Enter Id : </label> &nbsp;
+<input type="number" id="edit" name="edit" maxlength="3" size="50"
+    oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)"
+    placeholder="Enter Id to search and edit the faculty" [(ngModel)]="Id"> &nbsp;
+<button class="btn btn-primary btn-sm" (click)="searchFaculty()">Search</button>
 
-<div *ngIf="showform">
+<div *ngIf="object != undefined else firstElseBlock">
+    <h6>
+        {{object.facultyId}} : {{object.facultyName}} : {{object.facultyMobile}} : {{object.facultyEmail}} :
+        {{object.highestQualification}} : {{object.workLocation}}
+        <button class="btn btn-primary btn-sm" (click)="toggleEditButton = !toggleEditButton">Edit</button>
+    </h6>
+</div>
+
+<ng-template #firstElseBlock>
+    <div *ngIf="!show else secondElseBlock">
+        <h4>Please enter valid Id</h4>
+    </div>
+</ng-template>
+
+<ng-template #secondElseBlock></ng-template>
+
+<div *ngIf="toggleEditButton">
     <div class="container pt-5">
         <div class="row justify-content-sm-center pt-5">
             <div class="col-sm-6 shadow round pb-3">
-                <form [formGroup]="exform" (ngSubmit)="onSubmit()">
-                    <div class="form-group">
-                        <label class="col-form-label">Name : </label>
-                        <input formControlName="facultyName" type="text" class="form-control">
-                        <small *ngIf="facultyName?.invalid && facultyName?.touched" class="text-danger">Name is
-                            is Required</small>
-                    </div>
+                <form [formGroup]="exform" (ngSubmit)="onSubmit(object)">
                     <div class="form-group">
                         <label class="col-form-label">Mobile No. : </label>
                         <input formControlName="facultyMobile" type="text" class="form-control">
@@ -37,15 +49,9 @@
                         <small *ngIf="workLocation?.invalid && workLocation?.touched" class="text-danger"> Work Location
                             is Required</small>
                     </div>
-                    <button [disabled]="exform.invalid" type="submit" class="btn btn-primary btn-sm">Save</button>
+                    <button [disabled]="exform.invalid" type="submit" class="btn btn-primary btn-sm">Update</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-<a routerLink="/viewFaculties">View-Faculties</a> &nbsp;
-<a routerLink="/editFaculty">Edit-Faculty</a> &nbsp;
-<a routerLink="/phdFaculties">Phd-Faculties</a> &nbsp;
-
-<router-outlet></router-outlet>
